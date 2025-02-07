@@ -1,0 +1,125 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Main container */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 400px;
+}
+
+/* Content Panel */
+.content-panel {
+  width: 100%;
+  height: 65vh;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Bottom Navigation Bar */
+.bottom-nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background: #000000;
+  padding: 10px 0;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.bottom-nav button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.bottom-nav button:hover {
+  color: #ffcc00;
+}
+
+/* Textarea styles */
+textarea {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 8px;
+  font-size: 16px;
+}
+
+button {
+  background: #000000;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #3b3cb1;
+}
+
+h3 {
+  color:#D3D3D3;
+}
+
+/* ✅ Styles for Fixed Panel Header */
+.panel-header {
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+  padding: 10px 15px;
+  background-color: white; /* Keeps header readable */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px; /* Fixed height */
+}
+
+/* ✅ Align title to the left with spacing */
+.panel-header h2 {
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  margin: 0;
+  padding-left: 10px;
+}
+
+/* ✅ Horizontal line spacing */
+.panel-header hr {
+  width: 100%;
+  height: 2px;
+  background-color: #ccc;
+  border: none;
+  margin-top: 10px;
+}

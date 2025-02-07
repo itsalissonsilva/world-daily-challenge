@@ -1,0 +1,64 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World Daily Challenge</title>
+  <link rel="stylesheet" href="src/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- Verification Screen -->
+  <div id="verify-screen">
+    <h2>Welcome to World Daily Challenge</h2>
+    <button onclick="handleVerify()">Verify</button>
+  </div>
+
+  <!-- Main Challenge UI -->
+  <div id="app-screen" class="hidden">
+    <div class="container">
+      
+<div class="content-panel" id="content-panel">
+  <!-- ✅ Added Panel Header -->
+  <div class="panel-header">
+    <h2>World Daily Challenge</h2>
+    <hr>
+  </div>
+
+  <div id="challenge-tab" class="tab-content">
+    <h3>Today's Challenge:</h3>
+    <p id="challenge-text">Loading...</p>
+  </div>
+
+  <div id="submit-tab" class="tab-content hidden">
+    <h3>Submit Your Response</h3>
+    <textarea id="response-input" placeholder="Your response here..."></textarea>
+    <button onclick="submitResponse()">Submit</button>
+    <p id="submit-message" class="hidden">You did it! ✅</p>
+  </div>
+
+  <div id="social-tab" class="tab-content hidden">
+    <h3>Community Responses</h3>
+    <div id="social-feed">Loading...</div>
+  </div>
+
+  <div id="leaderboard-tab" class="tab-content hidden">
+    <h3>Leaderboard</h3>
+    <div id="leaderboard">Loading...</div>
+  </div>
+</div>
+
+
+      <!-- Bottom Navigation Tabs -->
+      <div class="bottom-nav">
+        <button onclick="showTab('challenge')"><i class="fa-solid fa-bolt"></i></button>
+        <button onclick="showTab('submit')"><i class="fa-solid fa-edit"></i></button>
+        <button onclick="showTab('social')"><i class="fa-solid fa-users"></i></button>
+        <button onclick="showTab('leaderboard')"><i class="fa-solid fa-trophy"></i></button>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
