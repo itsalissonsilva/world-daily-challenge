@@ -1,4 +1,5 @@
-const backendURL = "http://localhost:3000";
+const backendURL = "https://497e-187-56-160-214.ngrok-free.app"; // Change to your actual Ngrok backend URL
+ // Change when deploying
 
 let username = localStorage.getItem("username");
 
@@ -22,20 +23,23 @@ function startApp() {
   fetchLeaderboard();
 }
 
+// ✅ Updated tab switching logic
 window.showTab = function showTab(tab) {
   document.querySelectorAll(".tab-content").forEach(div => div.classList.add("hidden"));
   document.getElementById(`${tab}-tab`).classList.remove("hidden");
 };
 
+// ✅ Fetch the daily challenge
 function fetchChallenge() {
   fetch(`${backendURL}/api/challenge`)
     .then(res => res.json())
     .then(data => document.getElementById("challenge-text").innerText = data.challenge);
 }
 
+// ✅ Updated submission logic to hide textarea AND button
 window.submitResponse = function submitResponse() {
   const responseInput = document.getElementById("response-input");
-  const submitButton = document.querySelector("#submit-tab button");
+  const submitButton = document.querySelector("#submit-tab button"); // ✅ Get submit button
   const response = responseInput.value;
 
   if (!response.trim()) return alert("Write something!");
@@ -46,11 +50,12 @@ window.submitResponse = function submitResponse() {
     body: JSON.stringify({ username, response })
   }).then(() => {
     document.getElementById("submit-message").classList.remove("hidden");
-    responseInput.classList.add("hidden");
-    submitButton.classList.add("hidden");
+    responseInput.classList.add("hidden"); // ✅ Hide textarea
+    submitButton.classList.add("hidden"); // ✅ Hide submit button
   });
 };
 
+// ✅ Fetch all social responses (with votes)
 function fetchSocialResponses() {
   fetch(`${backendURL}/api/social`)
     .then(res => res.json())
@@ -73,6 +78,7 @@ function fetchSocialResponses() {
     });
 }
 
+// ✅ Handle voting
 window.voteOnResponse = function voteOnResponse(responseId, voteType) {
   fetch(`${backendURL}/api/vote`, {
     method: "POST",
@@ -97,6 +103,7 @@ window.voteOnResponse = function voteOnResponse(responseId, voteType) {
 };
 
 
+// ✅ Fetch leaderboard rankings
 function fetchLeaderboard() {
   fetch(`${backendURL}/api/leaderboard`)
     .then(res => res.json())
@@ -106,3 +113,4 @@ function fetchLeaderboard() {
       ).join("");
     });
 }
+
