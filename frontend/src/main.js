@@ -1,4 +1,4 @@
-const backendURL = "http://localhost:3000"; // Change when deploying
+const backendURL = "http://localhost:3000";
 
 let username = localStorage.getItem("username");
 
@@ -22,23 +22,20 @@ function startApp() {
   fetchLeaderboard();
 }
 
-// ✅ Updated tab switching logic
 window.showTab = function showTab(tab) {
   document.querySelectorAll(".tab-content").forEach(div => div.classList.add("hidden"));
   document.getElementById(`${tab}-tab`).classList.remove("hidden");
 };
 
-// ✅ Fetch the daily challenge
 function fetchChallenge() {
   fetch(`${backendURL}/api/challenge`)
     .then(res => res.json())
     .then(data => document.getElementById("challenge-text").innerText = data.challenge);
 }
 
-// ✅ Updated submission logic to hide textarea AND button
 window.submitResponse = function submitResponse() {
   const responseInput = document.getElementById("response-input");
-  const submitButton = document.querySelector("#submit-tab button"); // ✅ Get submit button
+  const submitButton = document.querySelector("#submit-tab button");
   const response = responseInput.value;
 
   if (!response.trim()) return alert("Write something!");
@@ -49,12 +46,11 @@ window.submitResponse = function submitResponse() {
     body: JSON.stringify({ username, response })
   }).then(() => {
     document.getElementById("submit-message").classList.remove("hidden");
-    responseInput.classList.add("hidden"); // ✅ Hide textarea
-    submitButton.classList.add("hidden"); // ✅ Hide submit button
+    responseInput.classList.add("hidden");
+    submitButton.classList.add("hidden");
   });
 };
 
-// ✅ Fetch all social responses (with votes)
 function fetchSocialResponses() {
   fetch(`${backendURL}/api/social`)
     .then(res => res.json())
@@ -66,7 +62,7 @@ function fetchSocialResponses() {
             <p><strong>${r.username}:</strong> ${r.response}</p>
             <hr style="height: 1px; background-color: black; border: none;">
             <div class="vote-buttons">
-              <button onclick="voteOnResponse('${r.responseId}', 1)">🟡</button>
+              <button onclick="voteOnResponse('${r.responseId}', 'upvote')">🟡</button>
               <span id="votes-${r.responseId}">${r.votes}</span>
               <p>|</p><button onclick="voteOnResponse('${r.responseId}', 'mini-vote')">⭐</button>
               <span id="mini-votes-${r.responseId}">${r.miniVotes}</span>
@@ -77,14 +73,20 @@ function fetchSocialResponses() {
     });
 }
 
-// ✅ Handle voting
 window.voteOnResponse = function voteOnResponse(responseId, voteType) {
   fetch(`${backendURL}/api/vote`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ responseId, voteType }),
   })
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) {
+        return res.text().then(text => {
+          throw new Error(`Server error: ${text}`);
+        });
+      }
+      return res.json();
+    })
     .then(data => {
       if (data.success) {
         document.getElementById(`votes-${responseId}`).innerText = data.votes;
@@ -94,7 +96,7 @@ window.voteOnResponse = function voteOnResponse(responseId, voteType) {
     .catch(err => console.error("Voting failed", err));
 };
 
-// ✅ Fetch leaderboard rankings
+
 function fetchLeaderboard() {
   fetch(`${backendURL}/api/leaderboard`)
     .then(res => res.json())
